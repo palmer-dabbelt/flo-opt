@@ -1,0 +1,10 @@
+#!/bin/bash
+
+flo-patterns --list | while read design
+do
+    flo-patterns --list $design | while read param
+    do
+        echo "TESTS   += $design-$param"
+        echo "SOURCES += flo-patterns.bash"
+    done
+done
