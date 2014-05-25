@@ -27,6 +27,26 @@
 #include "node.h++"
 
 class flo: public libflo::flo<node, operation> {
+    typedef std::shared_ptr<operation> operation_ptr;
+    typedef std::shared_ptr<node> node_ptr;
+
+public:
+    /* This constructor is used by libflo. */
+    flo(std::map<std::string, node_ptr>& nodes,
+        std::vector<operation_ptr>& ops);
+
+public:
+    /* This is pretty funky.  Essentially it's just a way to work
+     * around the fact that just calling "flo::parse()" from some code
+     * will actually end up giving you the version that returns a
+     * libflo::flo<...> which can't be casted to this sort of flo. */
+    static const std::shared_ptr<flo> parse(const std::string& filename)
+        {
+            return libflo::flo<node, operation>::parse_help<flo>(
+                filename,
+                libflo::flo<node, operation>::create_node
+                );
+        }
 };
 
 #endif

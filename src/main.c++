@@ -21,6 +21,8 @@
 
 #include <string.h>
 #include <stdio.h>
+#include "pass_list.h++"
+#include "pass_number.h++"
 #include "flo.h++"
 #include "version.h"
 
@@ -41,8 +43,17 @@ int main(int argc, const char **argv)
     /* Reads a Flo file from the input file. */
     auto in_flo = flo::parse(argv[1]);
 
-    /* FIXME: Actually process something... */
-    auto out_flo = in_flo;
+    /* Obtains the list of pass numbers and begins running each of
+     * them in order. */
+    std::shared_ptr<flo> cur = in_flo;
+    for (const auto& pass_number: all_pass_numbers()) {
+        for (const auto& pass: pass_list_lookup(pass_number)) {
+            cur = pass->operate(cur);
+        }
+    }
+
+    /* Just rename the flo file, it's now an output! */
+    auto out_flo = cur;
 
     /* Creates a new output file and begins writing it out. */
     auto out_file = fopen(argv[2], "w");
