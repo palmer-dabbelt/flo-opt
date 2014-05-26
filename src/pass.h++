@@ -26,10 +26,13 @@
 
 /* Represents a single optimization pass. */
 class pass {
+protected:
     typedef std::shared_ptr<flo> flo_ptr;
 
 public:
-    virtual const flo_ptr& operate(const flo_ptr& i) const = 0;
+    virtual const std::string& name(void) const = 0;
+
+    virtual const flo_ptr operate(const flo_ptr& i) const = 0;
 };
 
 #endif

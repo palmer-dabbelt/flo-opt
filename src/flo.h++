@@ -47,6 +47,13 @@ public:
                 libflo::flo<node, operation>::create_node
                 );
         }
+
+    static const std::shared_ptr<flo> empty(void)
+        {
+            std::map<std::string, node_ptr> nodes;
+            std::vector<operation_ptr> ops;
+            return std::make_shared<flo>(nodes, ops);
+        }
 };
 
 #endif

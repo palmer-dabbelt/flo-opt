@@ -46,11 +46,9 @@ int main(int argc, const char **argv)
     /* Obtains the list of pass numbers and begins running each of
      * them in order. */
     std::shared_ptr<flo> cur = in_flo;
-    for (const auto& pass_number: all_pass_numbers()) {
-        for (const auto& pass: pass_list_lookup(pass_number)) {
+    for (const auto& pass_number: all_pass_numbers())
+        for (const auto& pass: pass_list_lookup(pass_number))
             cur = pass->operate(cur);
-        }
-    }
 
     /* Just rename the flo file, it's now an output! */
     auto out_flo = cur;

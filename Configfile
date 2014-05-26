@@ -22,4 +22,5 @@ BINARIES    += flo-opt
 COMPILEOPTS += `ppkg-config flo --cflags`
 LINKOPTS    += `ppkg-config flo --libs`
 SOURCES     += main.c++
+CONFIG      += auto-passes
 CONFIG      += auto-flo-torture

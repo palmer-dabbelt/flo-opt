@@ -33,7 +33,7 @@ const std::vector<std::shared_ptr<pass>> pass_list_lookup(const pass_number& n)
 {
     auto v = std::vector<std::shared_ptr<pass>>();
 
-    for (auto it = pass_map.find(n); it != pass_map.end(); ++it)
+    for (auto it = pass_map.find(n); it != pass_map.upper_bound(n) && it != pass_map.end(); ++it)
         v.push_back(it->second);
 
     return v;

@@ -28,15 +28,16 @@
 /* This contains the list of pass numbers that the system knows about.
  * Be sure to update "max_pass_number" if this changes! */
 enum class pass_number {
-  NOP  
+    INIT,
+    FINAL
 };
 
 /* The largest pass number in the system, useful for iterating through
  * passes.  This must be kept in sync manually! */
-static const size_t max_pass_number = (size_t)(pass_number::NOP);
+static const size_t max_pass_number = (size_t)(pass_number::FINAL);
 
 /* Returns a list of all the pass numbers that are known to the system
  * during this execution. */
-const std::vector<pass_number>& all_pass_numbers(void);
+const std::vector<pass_number> all_pass_numbers(void);
 
 #endif

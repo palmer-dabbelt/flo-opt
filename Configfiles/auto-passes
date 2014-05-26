@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd src/
+find passes/ -iname "*.c++" | while read source
+do
+    echo "SOURCES += $source"
+done

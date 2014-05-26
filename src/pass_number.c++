@@ -20,19 +20,14 @@
  */
 
 #include "pass_number.h++"
+#include <stdio.h>
 
-/* A global list of all the pass numbers that are in use by the
- * system, which is initailized as a library constructor. */
-static std::vector<pass_number> pass_numbers;
-static void init_pass_numbers(void) __attribute__((constructor));
-
-const std::vector<pass_number>& all_pass_numbers(void)
+const std::vector<pass_number> all_pass_numbers(void)
 {
-    return pass_numbers;
-}
+    std::vector<pass_number> pass_numbers;
 
-void init_pass_numbers(void)
-{
     for (size_t i = 0; i <= max_pass_number; ++i)
         pass_numbers.push_back((pass_number)i);
+
+    return pass_numbers;
 }
