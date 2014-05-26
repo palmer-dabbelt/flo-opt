@@ -99,8 +99,12 @@ private:
 
 void init(void)
 {
-    pass_list_add(
-        std::make_shared<balance_bitwise_op>(libflo::opcode::AND),
-        pass_number::FINAL
-        );
+    std::vector<libflo::opcode> opcodes = {libflo::opcode::AND,
+                                           libflo::opcode::OR,
+                                           libflo::opcode::XOR};
+
+    for (const auto& opcode: opcodes) {
+        auto pass = std::make_shared<balance_bitwise_op>(opcode);
+        pass_list_add(pass, pass_number::REBALANCE);
+    }
 }

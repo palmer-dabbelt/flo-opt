@@ -29,6 +29,7 @@
  * Be sure to update "max_pass_number" if this changes! */
 enum class pass_number {
     INIT,
+    REBALANCE, /* Re-balances binary operations. */
     FINAL
 };
 
