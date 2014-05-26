@@ -28,7 +28,7 @@
 
 class operation: public libflo::operation<node> {
 public:
-    operation(std::shared_ptr<node>& dest,
+    operation(const std::shared_ptr<node>& dest,
               const libflo::unknown<size_t>& width,
               const libflo::opcode& op,
               const std::vector<std::shared_ptr<node>>& s);

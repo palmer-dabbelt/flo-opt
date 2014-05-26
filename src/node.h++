@@ -27,13 +27,19 @@
 class node: public libflo::node {
 
 public:
-        node(const std::string name,
-             const libflo::unknown<size_t>& width,
-             const libflo::unknown<size_t>& depth,
-             bool is_mem,
-             bool is_const,
-             libflo::unknown<size_t> cycle,
-             const libflo::unknown<std::string>& posn);
+    /* This is used by libflo internally. */
+    node(const std::string name,
+         const libflo::unknown<size_t>& width,
+         const libflo::unknown<size_t>& depth,
+         bool is_mem,
+         bool is_const,
+         libflo::unknown<size_t> cycle,
+         const libflo::unknown<std::string>& posn);
+
+public:
+    /* Creates a temporary node from a template node, producing a new
+     * node with a different name but the same width. */
+    static std::shared_ptr<node> make_temp(const std::shared_ptr<node>& t);
 };
 
 #endif

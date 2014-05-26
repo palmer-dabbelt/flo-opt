@@ -31,3 +31,19 @@ node::node(const std::string name,
     : libflo::node(name, width, depth, is_mem, is_const, cycle, posn)
 {
 }
+
+std::shared_ptr<node> node::make_temp(const std::shared_ptr<node>& t)
+{
+    static size_t index = 0;
+    char name[1024];
+    snprintf(name, 1024, "OPT" SIZET_FORMAT, index++);
+
+    return std::make_shared<node>(name,
+                                  t->width_u(),
+                                  libflo::unknown<size_t>(),
+                                  false,
+                                  false,
+                                  libflo::unknown<size_t>(),
+                                  libflo::unknown<std::string>()
+        );
+}
