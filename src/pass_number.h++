@@ -30,6 +30,7 @@
 enum class pass_number {
     INIT,
     REBALANCE, /* Re-balances binary operations. */
+    LATE_DCE,
     FINAL
 };
 
