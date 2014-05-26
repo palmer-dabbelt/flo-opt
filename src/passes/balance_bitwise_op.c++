@@ -160,13 +160,6 @@ private:
                     auto b = input_set.front(); input_set.pop();
                     auto n = node::make_temp(a);
 
-                    fprintf(stderr, "'%s' <= '%s' %% '%s' (%ld)\n",
-                            n->name().c_str(),
-                            a->name().c_str(),
-                            b->name().c_str(),
-                            input_set.size()
-                        );
-
                     auto op = std::make_shared<operation>(
                         n,
                         n->width_u(),
