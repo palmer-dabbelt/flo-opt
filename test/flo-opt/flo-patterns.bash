@@ -4,6 +4,13 @@
 set -ex
 set -o pipefail
 
+have_valgrind="true"
+if [[ "$(which valgrind)" == "" ]]
+then
+    have_valgrind="false"
+fi
+
+
 # Extract the actual name of the test from the provided argument list
 testname="$(basename "$(dirname "$0")")"
 pattern="$(echo "$testname" | cut -d- -f1)"
@@ -17,6 +24,19 @@ cat Torture.vcd
 # Actually optimize that Flo file
 mv Torture.flo Torture-unopt.flo
 $PTEST_BINARY Torture-unopt.flo Torture.flo
+
+if [[ "$have_valgrind" == "true" ]]
+then
+    valgrind --log-file=vglog -q $PTEST_BINARY Torture-unopt.flo Torture-vg.flo
+    cat vglog
+
+    if [[ "$(cat vglog | wc -l)" != 0 ]]
+    then
+        exit 1
+    fi
+
+    diff Torture-vg.flo Torture.flo
+fi
 
 # Build that Flo output into a C++ emulator
 flo-llvm --torture Torture.flo
